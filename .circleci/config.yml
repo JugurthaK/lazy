@@ -18,7 +18,7 @@ jobs:
             sudo apt-get -qq install git-ftp
             echo "Deploying project ..."
             git reset --hard
-            git ftp push --syncroot ./dist --user $FTP_USER --passwd $FTP_PASSWORD $FTP_SERVER
+            git ftp init --syncroot ./dist --user $FTP_USER --passwd $FTP_PASSWORD $FTP_SERVER
 workflows:
   build:
     jobs:
