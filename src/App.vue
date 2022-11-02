@@ -1,26 +1,43 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <v-app>
+    <v-app-bar :elevation="2" rounded="">
+      <v-app-bar-title>Lazy</v-app-bar-title>
+      <template v-slot:append>
+        <v-btn icon="mdi-weather-night" @click="toggleTheme"></v-btn>
+      </template>
+    </v-app-bar>
+    <v-main>
+      <NewSecret />
+      <DisplaySecrets />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { useTheme } from "vuetify/lib/framework.mjs";
+import NewSecret from "./components/NewSecret.vue";
+import DisplaySecrets from "./components/DisplaySecrets.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
-</script>
+    NewSecret,
+    DisplaySecrets,
+  },
+  setup() {
+    const theme = useTheme();
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+    const toggleTheme = () => {
+      theme.global.name.value = theme.global.current.value.dark
+        ? "light"
+        : "dark";
+    };
+
+    return {
+      toggleTheme,
+    };
+  },
+  created() {
+    document.title = "Lazy";
+  },
+};
+</script>
