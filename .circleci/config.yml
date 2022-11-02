@@ -13,7 +13,7 @@ jobs:
           command: npm run build
       - run:
           name: Install git-ftp
-          command: apt-get install git-ftp
+          command: apt-get -qq install git-ftp
       - run:
           name: Deploy using git-ftp
           command: git ftp push --syncroot ./dist --user $FTP_USERNAME --passwd $FTP_PASSWORD $FTP_SERVER
