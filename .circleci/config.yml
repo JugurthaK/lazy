@@ -16,7 +16,12 @@ jobs:
           command: apt-get -qq install git-ftp
       - run:
           name: Deploy using git-ftp
-          command: git ftp push --syncroot ./dist --user $FTP_USERNAME --passwd $FTP_PASSWORD $FTP_SERVER
+          command: |
+            sudo apt-get update
+            sudo apt-get -qq install git-ftp
+            echo "Deploying project ..."
+            git reset --hard
+            git ftp push --syncroot ./dist --user $FTP_USERNAME --passwd $FTP_PASSWORD $FTP_SERVER
 workflows:
   build:
     jobs:
