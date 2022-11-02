@@ -1,0 +1,25 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: cimg/node:18.12
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Build application for production
+          command: npm run build
+      - run:
+          name: Deploy using git-ftp
+          command: |
+            sudo apt-get update
+            sudo apt-get -qq install git-ftp
+            echo "Deploying project ..."
+            git reset --hard
+            git ftp push --syncroot ./dist --user $FTP_USER --passwd $FTP_PASSWORD $FTP_SERVER
+workflows:
+  build:
+    jobs:
+      - build
