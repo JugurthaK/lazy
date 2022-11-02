@@ -12,9 +12,6 @@ jobs:
           name: Build application for production
           command: npm run build
       - run:
-          name: Install git-ftp
-          command: apt-get -qq install git-ftp
-      - run:
           name: Deploy using git-ftp
           command: |
             sudo apt-get update
